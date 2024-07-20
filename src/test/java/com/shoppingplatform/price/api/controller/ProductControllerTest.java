@@ -1,10 +1,10 @@
-package com.shoppingplatform.price.presentation.controller;
+package com.shoppingplatform.price.api.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.shoppingplatform.price.domain.model.DiscountType;
 import com.shoppingplatform.price.domain.model.Product;
 import com.shoppingplatform.price.application.ProductDiscountService;
-import com.shoppingplatform.price.presentation.dto.ProductDto;
+import com.shoppingplatform.price.api.dto.ProductDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

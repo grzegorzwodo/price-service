@@ -1,6 +1,6 @@
-package com.shoppingplatform.price.presentation.domain.policy;
+package com.shoppingplatform.price.api.domain.policy;
 
-import com.shoppingplatform.price.domain.policy.AmountBasedDiscountPolicy;
+import com.shoppingplatform.price.domain.policy.PercentageBasedDiscountPolicy;
 import com.shoppingplatform.price.infrastructure.config.DiscountConfig;
 import com.shoppingplatform.price.infrastructure.config.Policy;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,8 +11,9 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AmountBasedDiscountPolicyTest {
-    private AmountBasedDiscountPolicy discountPolicy;
+public class PercentageBasedDiscountPolicyTest {
+
+    private PercentageBasedDiscountPolicy discountPolicy;
 
     @BeforeEach
     public void setUp() {
@@ -24,10 +25,10 @@ public class AmountBasedDiscountPolicyTest {
 
         // Create DiscountConfig with the list of policies
         DiscountConfig discountConfig = new DiscountConfig();
-        discountConfig.setAmountBased(policies);
+        discountConfig.setPercentageBased(policies);
 
         // Initialize the policy
-        discountPolicy = new AmountBasedDiscountPolicy(discountConfig);
+        discountPolicy = new PercentageBasedDiscountPolicy(discountConfig);
     }
 
     @Test
@@ -69,5 +70,4 @@ public class AmountBasedDiscountPolicyTest {
         double discountedPrice = discountPolicy.applyDiscount(20, price);
         assertEquals(85.0, discountedPrice);
     }
-
 }

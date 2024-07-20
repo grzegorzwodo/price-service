@@ -1,4 +1,4 @@
-package com.shoppingplatform.price.presentation.dto;
+package com.shoppingplatform.price.api.dto;
 
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
