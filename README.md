@@ -1,1 +1,23 @@
-# Price service 
+# Price service (Shopping Platform)
+
+## Requirements
+- Java 17 or higher
+- Gradle
+- Docker
+
+## Building the Project
+```bash
+./gradlew clean build
+```
+
+## Running the Project
+# Using Gradlew
+```bash
+./gradlew bootRun
+```
+
+# Using Docker
+```bash
+docker build -t price-service .
+docker run -p 8080:8080 price-service
+```
