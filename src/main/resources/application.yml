@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: price-service
+
+server:
+  port: 8080
+
+discount:
+  amount-based:
+    - quantity: 10
+      discount: 2.0
+    - quantity: 100
+      discount: 5.0
+  percentage-based:
+    - quantity: 10
+      discount: 3.0
+    - quantity: 50
+      discount: 5.0
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html

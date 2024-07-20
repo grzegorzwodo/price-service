@@ -21,3 +21,8 @@
 docker build -t price-service .
 docker run -p 8080:8080 price-service
 ```
+
+# Swagger ui
+```
+http://localhost:8080/swagger-ui/index.html
+```
