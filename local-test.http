@@ -1,0 +1,14 @@
+### Add a new product
+POST http://localhost:8080/api/products
+Content-Type: application/json
+
+{
+  "id": "e3a1b1d4-7ff9-4d2b-987f-2c1e1a123456",
+  "price": 100.0
+}
+
+### Get the price of the product with amount-based discount
+GET http://localhost:8080/api/products/e3a1b1d4-7ff9-4d2b-987f-2c1e1a123456/price?quantity=10&discountType=AMOUNT
+
+### Get the price of the product with percentage-based discount
+GET http://localhost:8080/api/products/e3a1b1d4-7ff9-4d2b-987f-2c1e1a123456/price?quantity=10&discountType=PERCENTAGE
