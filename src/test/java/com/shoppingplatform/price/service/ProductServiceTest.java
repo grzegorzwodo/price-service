@@ -11,7 +11,6 @@ import org.springframework.test.context.TestPropertySource;
 import java.util.UUID;
 
 import static com.shoppingplatform.price.domain.model.DiscountType.*;
-import static com.shoppingplatform.price.domain.model.DiscountType.PERCENTAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
