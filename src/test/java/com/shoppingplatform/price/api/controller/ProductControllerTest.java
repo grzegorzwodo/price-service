@@ -39,13 +39,11 @@ public class ProductControllerTest {
     private ProductDiscountService productDiscountService;
 
     private UUID productId;
-    private Product product;
 
     @BeforeEach
     public void setUp() {
         productId = UUID.randomUUID();
-        product = new Product(productId, 10.0);
-        productDiscountService.addProduct(product);
+        productDiscountService.addProduct(new Product(productId, 10.0));
     }
 
     @Test
