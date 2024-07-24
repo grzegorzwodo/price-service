@@ -60,6 +60,6 @@ public class ProductDiscountService {
     }
 
     public double calculatePriceWithAllDiscounts(UUID id, int quantity) {
-        return calculatePrice(id, quantity, new AmountBasedDiscountPolicy(discountConfig), new PercentageBasedDiscountPolicy(discountConfig));
+        return calculatePrice(id, quantity, new PercentageBasedDiscountPolicy(discountConfig), new AmountBasedDiscountPolicy(discountConfig));
     }
 }
