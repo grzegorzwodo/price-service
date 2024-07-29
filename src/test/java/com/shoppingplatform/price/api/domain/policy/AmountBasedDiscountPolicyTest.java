@@ -6,6 +6,8 @@ import com.shoppingplatform.price.infrastructure.config.Policy;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,41 +35,41 @@ public class AmountBasedDiscountPolicyTest {
     @Test
     public void testApplyDiscount_NoDiscount() {
         // No discount should be applied for 0 items
-        double price = 100.0;
-        double discountedPrice = discountPolicy.applyDiscount(0, price);
-        assertEquals(100.0, discountedPrice);
+        BigDecimal price = BigDecimal.valueOf(100.0);
+        BigDecimal discountedPrice = discountPolicy.applyDiscount(0, price);
+        assertEquals(BigDecimal.valueOf(100.00).setScale(2, RoundingMode.HALF_UP), discountedPrice);
     }
 
     @Test
     public void testApplyDiscount_SingleItem() {
         // 5% discount should be applied for 1 item
-        double price = 100.0;
-        double discountedPrice = discountPolicy.applyDiscount(1, price);
-        assertEquals(95.0, discountedPrice);
+        BigDecimal price = BigDecimal.valueOf(100.0);
+        BigDecimal discountedPrice = discountPolicy.applyDiscount(1, price);
+        assertEquals(BigDecimal.valueOf(95.00).setScale(2, RoundingMode.HALF_UP), discountedPrice);
     }
 
     @Test
     public void testApplyDiscount_MultipleItems() {
         // 10% discount should be applied for 5 items
-        double price = 100.0;
-        double discountedPrice = discountPolicy.applyDiscount(5, price);
-        assertEquals(90.0, discountedPrice);
+        BigDecimal price = BigDecimal.valueOf(100.0);
+        BigDecimal discountedPrice = discountPolicy.applyDiscount(5, price);
+        assertEquals(BigDecimal.valueOf(90.00).setScale(2, RoundingMode.HALF_UP), discountedPrice);
     }
 
     @Test
     public void testApplyDiscount_MaximumDiscount() {
         // 15% discount should be applied for 10 items
-        double price = 100.0;
-        double discountedPrice = discountPolicy.applyDiscount(10, price);
-        assertEquals(85.0, discountedPrice);
+        BigDecimal price = BigDecimal.valueOf(100.0);
+        BigDecimal discountedPrice = discountPolicy.applyDiscount(10, price);
+        assertEquals(BigDecimal.valueOf(85.00).setScale(2, RoundingMode.HALF_UP), discountedPrice);
     }
 
     @Test
     public void testApplyDiscount_AboveMaximum() {
         // 15% discount should be applied for quantities above 10
-        double price = 100.0;
-        double discountedPrice = discountPolicy.applyDiscount(20, price);
-        assertEquals(85.0, discountedPrice);
+        BigDecimal price = BigDecimal.valueOf(100.0);
+        BigDecimal discountedPrice = discountPolicy.applyDiscount(20, price);
+        assertEquals(BigDecimal.valueOf(85.00).setScale(2, RoundingMode.HALF_UP), discountedPrice);
     }
 
 }

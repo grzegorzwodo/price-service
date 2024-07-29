@@ -1,6 +1,8 @@
 package com.shoppingplatform.price.domain.policy;
 
+import java.math.BigDecimal;
+
 public interface DiscountPolicy {
 
-    double applyDiscount(int quantity, double price);
+    BigDecimal applyDiscount(int quantity, BigDecimal price);
 }

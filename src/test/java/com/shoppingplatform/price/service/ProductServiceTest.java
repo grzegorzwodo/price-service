@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.TestPropertySource;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.UUID;
 
 import static com.shoppingplatform.price.domain.model.DiscountType.*;
@@ -25,42 +27,42 @@ public class ProductServiceTest {
     @BeforeEach
     public void setUp() {
         productId = UUID.randomUUID();
-        productDiscountService.addProduct(new Product(productId, 10.0));
+        productDiscountService.addProduct(new Product(productId, BigDecimal.valueOf(10.0).setScale(2, RoundingMode.HALF_UP)));
     }
 
     @Test
     public void testCalculatePriceWithAmountBasedDiscount() {
-        double price = productDiscountService.calculatePrice(productId, 10, AMOUNT);
-        assertEquals(98.0, price);
+        BigDecimal price = productDiscountService.calculatePrice(productId, 10, AMOUNT);
+        assertEquals(BigDecimal.valueOf(98.00).setScale(2, RoundingMode.HALF_UP), price);
     }
 
     @Test
     public void testCalculatePriceWithPercentageBasedDiscount() {
-        double price = productDiscountService.calculatePrice(productId, 10, PERCENTAGE);
-        assertEquals(97.0, price);
+        BigDecimal price = productDiscountService.calculatePrice(productId, 10, PERCENTAGE);
+        assertEquals(BigDecimal.valueOf(97.00).setScale(2, RoundingMode.HALF_UP), price);
     }
 
     @Test
     public void testCalculatePriceWithAmountBasedDiscountNoDiscount() {
-        double price = productDiscountService.calculatePrice(productId, 5, AMOUNT);
-        assertEquals(50.0, price);
+        BigDecimal price = productDiscountService.calculatePrice(productId, 5, AMOUNT);
+        assertEquals(BigDecimal.valueOf(50.00).setScale(2, RoundingMode.HALF_UP), price);
     }
 
     @Test
     public void testCalculatePriceWithPercentageBasedDiscountNoDiscount() {
-        double price = productDiscountService.calculatePrice(productId, 5, PERCENTAGE);
-        assertEquals(50.0, price);
+        BigDecimal price = productDiscountService.calculatePrice(productId, 5, PERCENTAGE);
+        assertEquals(BigDecimal.valueOf(50.00).setScale(2, RoundingMode.HALF_UP), price);
     }
 
     @Test
     public void testCalculatePriceWithAmountBasedDiscountHighQuantity() {
-        double price = productDiscountService.calculatePrice(productId, 100, AMOUNT);
-        assertEquals(995.0, price);
+        BigDecimal price = productDiscountService.calculatePrice(productId, 100, AMOUNT);
+        assertEquals(BigDecimal.valueOf(995.00).setScale(2, RoundingMode.HALF_UP), price);
     }
 
     @Test
     public void testCalculatePriceWithPercentageBasedDiscountHighQuantity() {
-        double price = productDiscountService.calculatePrice(productId, 50, PERCENTAGE);
-        assertEquals(475.0, price);
+        BigDecimal price = productDiscountService.calculatePrice(productId, 50, PERCENTAGE);
+        assertEquals(BigDecimal.valueOf(475.00).setScale(2, RoundingMode.HALF_UP), price);
     }
 }

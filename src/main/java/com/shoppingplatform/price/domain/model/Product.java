@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -11,6 +12,6 @@ import java.util.UUID;
 @AllArgsConstructor
 public class Product {
     private UUID id;
-    private double price;
+    private BigDecimal price;
 
 }

@@ -11,6 +11,8 @@ import com.shoppingplatform.price.infrastructure.config.DiscountConfig;
 import com.shoppingplatform.price.infrastructure.repository.ProductRepository;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -34,32 +36,32 @@ public class ProductDiscountService {
         productRepository.save(product);
     }
 
-    public double calculatePrice(UUID productId, int quantity, DiscountType discountType) {
+    public BigDecimal calculatePrice(UUID productId, int quantity, DiscountType discountType) {
         Product product = productRepository.findById(productId)
             .orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + productId));
 
-        double originalPrice = product.getPrice() * quantity;
+        BigDecimal originalPrice = product.getPrice().multiply(BigDecimal.valueOf(quantity));
 
         DiscountPolicy discountPolicy = allDiscountPolicy.get(discountType);
         if(discountPolicy == null) {
             throw new DiscountTypeIsNotSupportedException("Invalid discount type");
         }
 
-        return discountPolicy.applyDiscount(quantity, originalPrice);
+        return discountPolicy.applyDiscount(quantity, originalPrice).setScale(2, RoundingMode.HALF_UP);
     }
 
-    public double calculatePrice(UUID productId, int quantity, DiscountPolicy... discountPolicies) {
+    public BigDecimal calculatePrice(UUID productId, int quantity, DiscountPolicy... discountPolicies) {
         Product product = productRepository.findById(productId)
             .orElseThrow(() -> new ProductNotFoundException("Product not found with ID: " + productId));
 
-        double price = product.getPrice() * quantity;
+        BigDecimal price = product.getPrice().multiply(BigDecimal.valueOf(quantity));
         for (DiscountPolicy policy : discountPolicies) {
             price = policy.applyDiscount(quantity, price);
         }
         return price;
     }
 
-    public double calculatePriceWithAllDiscounts(UUID id, int quantity) {
+    public BigDecimal calculatePriceWithAllDiscounts(UUID id, int quantity) {
         return calculatePrice(id, quantity, new PercentageBasedDiscountPolicy(discountConfig), new AmountBasedDiscountPolicy(discountConfig));
     }
 }

@@ -9,7 +9,9 @@ import org.springframework.boot.context.properties.EnableConfigurationProperties
 public class PriceServiceApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(PriceServiceApplication.class, args);
 	}
+
 
 }

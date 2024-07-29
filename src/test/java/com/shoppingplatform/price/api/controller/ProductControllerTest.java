@@ -14,6 +14,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.web.servlet.MockMvc;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 
@@ -43,14 +44,14 @@ public class ProductControllerTest {
     @BeforeEach
     public void setUp() {
         productId = UUID.randomUUID();
-        productDiscountService.addProduct(new Product(productId, 10.0));
+        productDiscountService.addProduct(new Product(productId, BigDecimal.valueOf(10.0)));
     }
 
     @Test
     public void testAddProduct() throws Exception {
         ProductDto newProduct = new ProductDto();
         newProduct.setId(UUID.randomUUID());
-        newProduct.setPrice(20.0);
+        newProduct.setPrice(BigDecimal.valueOf(20.0));
 
         mockMvc.perform(post("/api/products")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -62,7 +63,7 @@ public class ProductControllerTest {
     public void testAddProductValidation() throws Exception {
         ProductDto newProduct = new ProductDto();
         newProduct.setId(null);
-        newProduct.setPrice(-1.0);
+        newProduct.setPrice(BigDecimal.valueOf(-1.0));
 
         mockMvc.perform(post("/api/products")
                 .contentType(MediaType.APPLICATION_JSON)

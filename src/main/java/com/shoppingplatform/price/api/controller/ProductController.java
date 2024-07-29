@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @RestController
@@ -32,12 +33,12 @@ public class ProductController {
     }
 
     @GetMapping("/{id}/price")
-    public double calculatePrice(@PathVariable UUID id, @RequestParam int quantity, @RequestParam DiscountType discountType) {
+    public BigDecimal calculatePrice(@PathVariable UUID id, @RequestParam int quantity, @RequestParam DiscountType discountType) {
         return productDiscountService.calculatePrice(id, quantity, discountType);
     }
 
     @GetMapping("/{id}/priceWithAllDiscounts")
-    public double calculatePriceWithAllDiscount(@PathVariable UUID id, @RequestParam int quantity) {
+    public BigDecimal calculatePriceWithAllDiscount(@PathVariable UUID id, @RequestParam int quantity) {
         return productDiscountService.calculatePriceWithAllDiscounts(id, quantity);
     }
 }

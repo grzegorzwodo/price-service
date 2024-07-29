@@ -1,11 +1,21 @@
 package com.shoppingplatform.price.domain.policy;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class EveryTenthProductFreePolicy implements DiscountPolicy {
 
     @Override
-    public double applyDiscount(int quantity, double price) {
+    public BigDecimal applyDiscount(int quantity, BigDecimal price) {
         int freeItems = quantity / 10;
-        double discountAmount = freeItems * (price / quantity);
-        return price - discountAmount;
+
+        // Obliczenie ceny jednostkowej jako BigDecimal
+        BigDecimal unitPrice = price.divide(BigDecimal.valueOf(quantity), RoundingMode.HALF_UP);
+
+        // Obliczenie kwoty zniżki
+        BigDecimal discountAmount = unitPrice.multiply(BigDecimal.valueOf(freeItems));
+
+        // Obliczenie ceny po zniżce
+        return price.subtract(discountAmount);
     }
 }
